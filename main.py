@@ -1,11 +1,23 @@
 import obilazakFajlova
-from analyzer import Parser
+import queryParser
 import trie
+import searchAlgorithm
+import rangiranje
 
-rootdir = r"C:\Users\Nemanja\PycharmProjects\PYTHON-OISISI-projekat\python-2.7.7-docs-html\faq"
+print("Unesite korenski direktorijum: ")
+rootdir = input()
+
+print("Unesite upit:")
+query = input()
 
 root = obilazakFajlova.obidji(rootdir)
+#print(root)
 
+(logop, search) = queryParser.parse(query)
+(tacno, counters, paths, links) = searchAlgorithm.find(root, logop, search)
+lista = rangiranje.rangiraj(counters, paths, links)
+for element in lista:
+    print(element)
 """
 root = trie.TrieNode('*')
 parser = Parser()
@@ -21,5 +33,5 @@ for word in parser.words:
 
 print(trie.find_prefix(root, 'Python'))
 """
-print(trie.find_prefix(root, 'Python'))
+#print(trie.find_prefix(root, 'Python'))
 
