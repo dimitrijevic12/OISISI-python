@@ -19,25 +19,18 @@ def add(root, word: str, path: str, links):
     """
     Adding a word in the trie structure
     """
-    counter = 1
+    temp = 0
     node = root
     for char in word:
         found_in_child = False
+
         # Search for the character in the children of the present `node`
         for child in node.children:
             if child.char == char:
                 # We found it, increase the counter by 1 to keep track that another
                 # word has it as well
                 node = child
-                if path not in node.paths:
-                    node.paths.append(path)
-                    node.counters.append(1)
-                    node.links.append(links)
-                else:
-                    i = -1
-                    for path in node.paths:
-                        i = i+1
-                    node.counters[i] += 1
+
                 # And point the node to the child that contains this char
                 found_in_child = True
                 break
@@ -50,15 +43,33 @@ def add(root, word: str, path: str, links):
             node.children.append(new_node)
             # And then point node to the new child
             node = new_node
+            temp = 1
     # Everything finished. Mark it as the end of a word.
-    """if char == 'n':
-        print(node.counters)"""
     node.word_finished = True
+    if temp != 1:
+        if path not in node.paths:
+            node.paths.append(path)
+            node.counters.append(1)
+            node.links.append(links)
+        else:
+            i = -1
+            for path in node.paths:
+                i = i + 1
+            node.counters[i] += 1
+    """if path not in node.paths:
+        node.paths.append(path)
+        node.counters.append(1)
+        node.links.append(links)
+    else:
+        i = -1
+        for path in node.paths:
+            i = i + 1
+        node.counters[i] += 1"""
 
 
 def find(root, prefix: str) -> Tuple[bool, int, list, list]:
     """
-    Check and return 
+    Check and return
       1. If the prefix exsists in any of the words we added so far
       2. If yes then how may words actually have the prefix
     """
@@ -90,7 +101,7 @@ def find(root, prefix: str) -> Tuple[bool, int, list, list]:
     # Well, we are here means we have found the prefix. Return true to indicate that
     # And also the counter of the last node. This indicates how many words have this
     # prefix
-    if node.word_finished:
+    if node.word_finished == True:
         print(node.word_finished)
         return True, node.counters, node.paths, node.links
     else:
