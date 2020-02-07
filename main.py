@@ -1,8 +1,8 @@
 import obilazakFajlova
 import queryParser
-import trie
 import searchAlgorithm
 import rangiranje
+import time
 
 print("Unesite korenski direktorijum: ")
 rootdir = input()
@@ -10,14 +10,17 @@ rootdir = input()
 print("Unesite upit:")
 query = input()
 
+start_time = time.time()
 root = obilazakFajlova.obidji(rootdir)
 #print(root)
 
 (logop, search) = queryParser.parse(query)
-(tacno, counters, paths, links) = searchAlgorithm.find(root, logop, search)
-lista = rangiranje.rangiraj(counters, paths, links)
-for element in lista:
-    print(element)
+(tacno, counter, counters, links) = searchAlgorithm.find(root, logop, search)
+print("--- %s seconds ---" % (time.time() - start_time))
+#lista = rangiranje.rangiraj(counters, links)
+print("Ukupno ima: ", counter)
+"""for element in lista:
+    print(element)"""
 """
 root = trie.TrieNode('*')
 parser = Parser()

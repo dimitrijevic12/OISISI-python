@@ -9,9 +9,11 @@ def obidji(rootdir):
             if file.endswith('.html'):
                 parser = Parser()
                 parser.parse(os.path.join(subdir, file))
-                #print(parser.links)
-                #print(os.path.join(subdir, file))
                 for word in parser.words:
-                   #print(word)
+                    ###print(word)
+                    """if word.lower() == "sphinx":
+                       print('******************')
+                    else:
+                        print(word)"""
                     trie.add(root, word.lower(), os.path.join(subdir, file), parser.links)
     return root

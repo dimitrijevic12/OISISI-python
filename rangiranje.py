@@ -1,6 +1,6 @@
-def rangiraj(counters, paths, links):
+def rangiraj(counters, links):
     mylist = list()
-    for i in range(0, len(paths)):
-        element = (counters[i], paths[i], links[i])
+    for path in counters:
+        element = (counters[path], links[path])
         mylist.append(element)
     return mylist

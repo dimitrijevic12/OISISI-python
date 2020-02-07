@@ -11,15 +11,16 @@ class TrieNode(object):
         # Is it the last character of the word.`
         self.word_finished = False
         # How many times this character appeared in the addition process
-        self.counters = []
-        self.links = []
-        self.paths = []
+        self.counters = {}
+        self.links = {}
+        #self.paths = []
+        self.counter = 0
 
-def add(root, word: str, path: str, links):
+def add(root, word: str, path, links):
     """
     Adding a word in the trie structure
     """
-    temp = 0
+    #temp = 0
     node = root
     for char in word:
         found_in_child = False
@@ -29,6 +30,7 @@ def add(root, word: str, path: str, links):
             if child.char == char:
                 # We found it, increase the counter by 1 to keep track that another
                 # word has it as well
+                #child.counter += 1
                 node = child
 
                 # And point the node to the child that contains this char
@@ -37,25 +39,32 @@ def add(root, word: str, path: str, links):
         # We did not find it so add a new child
         if not found_in_child:
             new_node = TrieNode(char)
-            new_node.counters.append(1)
+            """new_node.counters.append(1)
             new_node.paths.append(path)
-            new_node.links.append(links)
+            new_node.links.append(links)"""
             node.children.append(new_node)
             # And then point node to the new child
             node = new_node
-            temp = 1
+            #temp = 1
     # Everything finished. Mark it as the end of a word.
     node.word_finished = True
-    if temp != 1:
-        if path not in node.paths:
-            node.paths.append(path)
-            node.counters.append(1)
-            node.links.append(links)
-        else:
-            i = -1
-            for path in node.paths:
-                i = i + 1
-            node.counters[i] += 1
+    if path in node.counters:
+        node.counters[path] += 1
+        node.counter += 1
+    else:
+        node.counters[path] = 1
+        node.counter += 1
+    #if temp != 1:
+    """if path not in node.counters:
+        #node.paths.append(path)
+        #node.counters.append(1)
+        node.counters[path] = 1
+        #node.links.append(links)
+        node.links[path] = links
+        node.counter += 1
+    else:
+        node.counters[path] += 1
+        node.counter += 1"""
     """if path not in node.paths:
         node.paths.append(path)
         node.counters.append(1)
@@ -67,7 +76,7 @@ def add(root, word: str, path: str, links):
         node.counters[i] += 1"""
 
 
-def find(root, prefix: str) -> Tuple[bool, int, list, list]:
+def find(root, prefix: str) -> Tuple[bool, int, dict, dict]:
     """
     Check and return
       1. If the prefix exsists in any of the words we added so far
@@ -101,8 +110,8 @@ def find(root, prefix: str) -> Tuple[bool, int, list, list]:
     # Well, we are here means we have found the prefix. Return true to indicate that
     # And also the counter of the last node. This indicates how many words have this
     # prefix
-    if node.word_finished == True:
-        print(node.word_finished)
-        return True, node.counters, node.paths, node.links
-    else:
-        return False, [], [], []
+    #if node.word_finished == True:
+        #print(node.word_finished)
+    return True, node.counter, node.counters, node.links
+    #else:
+        #return False, [], [], []
