@@ -50,9 +50,11 @@ def add(root, word: str, path, links):
     node.word_finished = True
     if path in node.counters:
         node.counters[path] += 1
+        node.links[path] = node.links
         node.counter += 1
     else:
         node.counters[path] = 1
+        node.links[path] = links
         node.counter += 1
     #if temp != 1:
     """if path not in node.counters:

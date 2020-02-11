@@ -4,9 +4,11 @@ import trie
 
 def obidji(rootdir):
     root = trie.TrieNode('*')
+    found = 0
     for subdir, dirs, files in os.walk(rootdir):
         for file in files:
             if file.endswith('.html'):
+                found = 1
                 parser = Parser()
                 parser.parse(os.path.join(subdir, file))
                 for word in parser.words:
@@ -16,4 +18,6 @@ def obidji(rootdir):
                     else:
                         print(word)"""
                     trie.add(root, word.lower(), os.path.join(subdir, file), parser.links)
+    if found == 0:
+        print("Ne postoji html dokument u korenskom direktorijumu: ", rootdir)
     return root
