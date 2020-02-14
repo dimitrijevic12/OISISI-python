@@ -3,6 +3,7 @@ import queryParser
 import searchAlgorithm
 import rangiranje
 import time
+import set
 
 #print("Unesite korenski direktorijum: ")
 while True:
@@ -19,15 +20,14 @@ while True:
     (bool, logop, search) = queryParser.parse(query)
     if bool == True:
         break
-
-listaStranica = searchAlgorithm.find(root, search, logop)
+print(logop)
+#konacanSet = set.Set(False, 0, {})
+konacanSet = searchAlgorithm.find(root, search, logop)
 print("--- %s seconds ---" % (time.time() - start_time))
 #print(counters['C:\\python-2.7.7-docs-html\\whatsnew\\2.0.html'])
 #lista = rangiranje.rangiraj(counters, links)
-for stranica in listaStranica:
-    #print("Ukupno ima: ", stranica)
-    for element in listaStranica:
-         print(element)
+print(konacanSet)
+#print(type(konacanSet))
 """
 root = trie.TrieNode('*')
 parser = Parser()

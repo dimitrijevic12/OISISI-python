@@ -6,6 +6,10 @@ def parse(query):
     first = splittedQuery[0]
     logop = ""
     search = []
+    if len(splittedQuery) == 1 and first not in cases:
+        logop = "OR"
+        search.append(first)
+        return True, logop, search
     if first == "AND" or first == "OR":
         if(len(splittedQuery) == 1):
             print("Logicki operatori AND i OR ne mogu stajati sami")
