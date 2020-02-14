@@ -5,11 +5,14 @@ import rangiranje
 import time
 
 #print("Unesite korenski direktorijum: ")
-rootdir = input("Unesite korenski direktorijum: ")
-
+while True:
+    rootdir = input("Unesite korenski direktorijum: ")
+    (bool, root) = obilazakFajlova.obidji(rootdir)
+    if bool == True:
+        break
 #print("Unesite upit:")
 start_time = time.time()
-root = obilazakFajlova.obidji(rootdir)
+#root = obilazakFajlova.obidji(rootdir)
 #print(root)
 while True:
     query = input("Unesite upit: ")

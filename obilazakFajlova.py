@@ -20,4 +20,5 @@ def obidji(rootdir):
                     trie.add(root, word.lower(), os.path.join(subdir, file), parser.links)
     if found == 0:
         print("Ne postoji html dokument u korenskom direktorijumu: ", rootdir)
-    return root
+        return False, root
+    return True, root
