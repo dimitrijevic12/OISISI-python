@@ -20,14 +20,14 @@ while True:
     if bool == True:
         break
 
-listaStranica = searchAlgorithm.find(root, search)
+listaStranica = searchAlgorithm.find(root, search, logop)
 print("--- %s seconds ---" % (time.time() - start_time))
 #print(counters['C:\\python-2.7.7-docs-html\\whatsnew\\2.0.html'])
 #lista = rangiranje.rangiraj(counters, links)
 for stranica in listaStranica:
-    print("Ukupno ima: ", stranica[1])
-for element in listaStranica:
-     print(element)
+    #print("Ukupno ima: ", stranica)
+    for element in listaStranica:
+         print(element)
 """
 root = trie.TrieNode('*')
 parser = Parser()

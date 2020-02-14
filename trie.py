@@ -1,4 +1,5 @@
 from typing import Tuple
+import set
 
 class TrieNode(object):
     """
@@ -11,8 +12,9 @@ class TrieNode(object):
         # Is it the last character of the word.`
         self.word_finished = False
         # How many times this character appeared in the addition process
-        self.counters = {}
-        self.links = {}
+        #self.counters = {}
+        #self.links = {}
+        self.dictionary = {}
         #self.paths = []
         self.counter = 0
 
@@ -48,13 +50,17 @@ def add(root, word: str, path, links):
             #temp = 1
     # Everything finished. Mark it as the end of a word.
     node.word_finished = True
-    if path in node.counters:
-        node.counters[path] += 1
-        node.links[path] = node.links
+    if path in node.dictionary:
+        lista = node.dictionary[path]
+        lista[0] += 1
+        node.dictionary[path] = lista
+        #node.counters[path] += 1
+        #node.links[path] = node.links
         node.counter += 1
     else:
-        node.counters[path] = 1
-        node.links[path] = links
+        node.dictionary[path] = [1, links]
+        #node.counters[path] = 1
+        #node.links[path] = links
         node.counter += 1
     #if temp != 1:
     """if path not in node.counters:
@@ -85,6 +91,7 @@ def find(root, prefix: str) -> Tuple[bool, int, dict, dict]:
       2. If yes then how may words actually have the prefix
     """
     node = root
+    #setStranica = set.Set(False, 0, {}, {})
     #linkovi = []
     # If the root node has no children, then return False.
     # Because it means we are trying to search in an empty trie
@@ -108,12 +115,13 @@ def find(root, prefix: str) -> Tuple[bool, int, dict, dict]:
                 break
         # Return False anyway when we did not find a char.
         if char_not_found:
-            return False, 0
+            return set.Set(False, 0, {})
     # Well, we are here means we have found the prefix. Return true to indicate that
     # And also the counter of the last node. This indicates how many words have this
     # prefix
     #if node.word_finished == True:
         #print(node.word_finished)
-    return True, node.counter, node.counters, node.links
+    #return set.Set(True, node.counter, node.counters, node.links)
+    return set.Set(True, node.counter, node.dictionary)
     #else:
         #return False, [], [], []

@@ -1,17 +1,28 @@
 import trie
 
-def find(root, search):
-    # if logop == "OR" or logop == "":
-    #     for word in search:
-    #         print(trie.find(root, word))
-    #     return trie.find(root, word)
-    # elif logop == "OR":
-    #     for word in search:
-    #         print(trie.find(root, word))
-    # else:
-    #     for word in search:
-    #         print(trie.find(root, word))
-    results = list()
-    for word in search:
-        results.append(trie.find(root, word))
-    return results
+def find(root, search, logop):
+    # results = list()
+    # for word in search:
+    #     results.append(trie.find(root, word))
+    # return results
+    if logop == "OR":
+        i = -1
+        for word in search:
+            i += 1
+            set[i] = trie.find(root, word)
+            konacanSet = set[0].unija(set[i])
+        return konacanSet
+    elif logop == "AND":
+        i = -1
+        for word in search:
+            i += 1
+            set[i] = trie.find(root, word)
+            konacanSet = set[0].presek(set[i])
+    else:
+        i = -1
+        if len(search) == 2:
+            for word in search:
+                i += 1
+                set[i] = trie.find(root, word)
+                konacanSet = set[0].komplement(set[i])
+        #else:
