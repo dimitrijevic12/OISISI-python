@@ -122,6 +122,6 @@ def find(root, prefix: str) -> Tuple[bool, int, dict, dict]:
     #if node.word_finished == True:
         #print(node.word_finished)
     #return set.Set(True, node.counter, node.counters, node.links)
-    return set.Set(True, node.counter, node.dictionary)
+    return set.Set(node.dictionary)
     #else:
         #return False, [], [], []

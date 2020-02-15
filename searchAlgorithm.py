@@ -6,7 +6,7 @@ def find(root, search, logop):
     # for word in search:
     #     results.append(trie.find(root, word))
     # return results
-    konacanSet = set.Set(False, 0, {})
+    konacanSet = set.Set({})
     setovi = []
     if logop == "OR":
         print(len(search))
