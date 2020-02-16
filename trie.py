@@ -17,6 +17,7 @@ class TrieNode(object):
         self.dictionary = {}
         #self.paths = []
         self.counter = 0
+        #self.set = set.Set()
 
 def add(root, word: str, path, links):
     """
@@ -50,6 +51,10 @@ def add(root, word: str, path, links):
             #temp = 1
     # Everything finished. Mark it as the end of a word.
     node.word_finished = True
+    # if path not in node.set:
+    #     node.set.add(path, node.counter[path])
+    # else:
+
     if path in node.dictionary:
         lista = node.dictionary[path]
         lista[0] += 1
@@ -115,7 +120,7 @@ def find(root, prefix: str) -> Tuple[bool, int, dict, dict]:
                 break
         # Return False anyway when we did not find a char.
         if char_not_found:
-            return set.Set(False, 0, {})
+            return set.Set({})
     # Well, we are here means we have found the prefix. Return true to indicate that
     # And also the counter of the last node. This indicates how many words have this
     # prefix

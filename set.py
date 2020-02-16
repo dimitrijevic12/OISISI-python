@@ -14,6 +14,7 @@ class Set:
     def unija(self, other):
         for key2 in other.dictionary:
             if key2 in self.dictionary:
+                other.dictionary[key2][0] += self.dictionary[key2][0]
                 self.dictionary[key2] = other.dictionary[key2]
         return self
 

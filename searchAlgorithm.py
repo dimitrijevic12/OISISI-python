@@ -14,11 +14,11 @@ def find(root, search, logop):
             return trie.find(root, search[0])
         else:
             set1 = trie.find(root, search[0])
-            print(set1)
+            #print(set1)
             del search[0]
             for word in search:
                 set2 = trie.find(root, word)
-                print(set2)
+                #print(set2)
                 konacanSet = set1.unija(set2)
             # i = -1
             # for word in search:
