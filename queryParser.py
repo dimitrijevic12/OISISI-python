@@ -10,25 +10,22 @@ def parse(query):
         logop = "OR"
         search.append(first)
         return True, logop, search
-    if first == "AND" or first == "OR":
-        if(len(splittedQuery) == 1):
-            print("Logicki operatori AND i OR ne mogu stajati sami")
-        else:
-            print("Prva rec ne mogu biti logicki operatori AND i OR")
+    if first in cases:
+        print("Prva rec upita ne sme biti logicki operator")
         return False, logop, search
-    elif first == "NOT":
-        logop = "NOT"
-        if len(splittedQuery) == 1:
-            print("Logicki operator NOT ne moze stojati sam")
-            return False, logop, search
-        elif len(splittedQuery) == 3:
-            print("Ako je logicki operator NOT na prvom mestu upita, onda sme samo jedna rec da stoji posle njega")
-            return False, logop, search
-        elif splittedQuery[1] in cases:
-            print("Ne mogu stajati dva logicka operatora, jedan za drugim")
-            return False, logop, search
-        else:
-            search.append(splittedQuery[1])
+    # elif first == "NOT":
+    #     logop = "NOT"
+    #     if len(splittedQuery) == 1:
+    #         print("Logicki operator NOT ne moze stojati sam")
+    #         return False, logop, search
+    #     elif len(splittedQuery) == 3:
+    #         print("Ako je logicki operator NOT na prvom mestu upita, onda sme samo jedna rec da stoji posle njega")
+    #         return False, logop, search
+    #     elif splittedQuery[1] in cases:
+    #         print("Ne mogu stajati dva logicka operatora, jedan za drugim")
+    #         return False, logop, search
+    #     else:
+    #         search.append(splittedQuery[1])
         # for word in range(splittedQuery[1], splittedQuery[-1]):
         #     if word in cases:
         #         return False, logop, search

@@ -39,8 +39,9 @@ while bool1 == '1':
             if bool == True:
                 break
         print('**********************************************************************\n')
-        bool2 = input('Ako zelite ponovo da unesete korenski direktorijum, unesite broj 1\nAko zelite da unesete upit, unesite broj 2\nAko zelite da izadjete iz programa, unesite broj 3\nOpcija: ')
+        print('Ako zelite ponovo da unesete korenski direktorijum, unesite broj 1\nAko zelite da unesete upit, unesite broj 2\nAko zelite da izadjete iz programa, unesite broj 3')
         print('\n**********************************************************************\n')
+        bool2 = input('Opcija: ')
     elif bool2 == '2':
         bool3 = False
         while not bool3:
@@ -48,15 +49,20 @@ while bool1 == '1':
             (bool3, logop, search) = queryParser.parse(query)
         #print(logop)
         # konacanSet = set.Set(False, 0, {})
-        konacanSet = searchAlgorithm.find(root, search, logop)
+        (konacanSet, recnikStranica) = searchAlgorithm.find(root, search, logop)
         #print("--- %s seconds ---" % (time.time() - start_time))
         # print(counters['C:\\python-2.7.7-docs-html\\whatsnew\\2.0.html'])
         # lista = rangiranje.rangiraj(counters, links)
         print('\n**********************************************************************\n')
-        print(konacanSet)
+        if not recnikStranica:
+            print('Nije pronadjena nijedna rec!\n')
+        else:
+            print(konacanSet)
+            print(recnikStranica)
         print('**********************************************************************\n')
-        bool2 = input('Ako zelite da unesete novi korenski direktorijum, unesite broj 1\nAko zelite ponovo da unesete upit, unesite broj 2\nAko zelite da izadjete iz programa, unesite broj 3\nOpcija: ')
+        print('Ako zelite da unesete novi korenski direktorijum, unesite broj 1\nAko zelite ponovo da unesete upit, unesite broj 2\nAko zelite da izadjete iz programa, unesite broj 3')
         print('\n**********************************************************************\n')
+        bool2 = input('Opcija: ')
     elif bool2 == '3':
         bool1 = '3'
     else:
