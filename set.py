@@ -5,17 +5,18 @@ class Set:
         else:
             self.stranice = skup.stranice
 
+    """
+    U skupu ne smeju da postoje duplikati
+    """
     def add(self, other):
         if other not in self.stranice:
             self.stranice[other] = other
+
     def __str__(self):
         string = ""
         for stranica in self.stranice:
             string += stranica + "\n"
         return string
-
-    def __copy__(self):
-        return Set(self)
 
     def __or__(self, other):
         konacanSet = Set()
@@ -31,10 +32,6 @@ class Set:
             if key not in other.stranice:
                 konacanSet.add(key)
         return konacanSet
-        # delete = [key for key in other.stranice if key in self.stranice]
-        # for key in delete:
-        #     del self.stranice[key]
-        # return self
 
     def __and__(self, other):
         konacanSet = Set()

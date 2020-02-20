@@ -7,129 +7,73 @@ class TrieNode(object):
     """
 
     def __init__(self, char: str):
-        self.char = char
-        self.children = []
-        # Is it the last character of the word.`
-        self.word_finished = False
-        # How many times this character appeared in the addition process
-        #self.counters = {}
-        #self.links = {}
-        self.dictionary = {}
-        self.set = set.Set()
-        #self.paths = []
+        self.char = char                # karakter
+        self.children = []              # sva deca jednog cvora
+        self.word_finished = False      # da li je rec zavrsena
+        self.dictionary = {}            # recnik koji sadrzi path stranice kao kljuc i broj reci na toj stranici kao vrednost
+        self.set = set.Set()            # skup stranica
         self.counter = 0
-        #self.set = set.Set()
 
 def add(root, word: str, path):
     """
-    Adding a word in the trie structure
+    Dodavanje podataka u cvor
     """
-    #temp = 0
     node = root
     for char in word:
         found_in_child = False
 
-        # Search for the character in the children of the present `node`
+        # Trazi karakter u listi dece trenutnog cvora
+
         for child in node.children:
             if child.char == char:
-                # We found it, increase the counter by 1 to keep track that another
-                # word has it as well
-                #child.counter += 1
                 node = child
 
-                # And point the node to the child that contains this char
+                # Ako pronadje, to 'dete' sada postaje trenutni cvor
                 found_in_child = True
                 break
-        # We did not find it so add a new child
+        # Ako ne pronadje karakter, inicijalizuje se novo 'dete'
         if not found_in_child:
             new_node = TrieNode(char)
-            """new_node.counters.append(1)
-            new_node.paths.append(path)
-            new_node.links.append(links)"""
             node.children.append(new_node)
-            # And then point node to the new child
+            # Dobijeno 'dete' postaje trenutni cvor
             node = new_node
-            #temp = 1
-    # Everything finished. Mark it as the end of a word.
+    # Na redu je poslednji karakter reci
     node.word_finished = True
-    # if path not in node.set:
-    #     node.set.add(path, node.counter[path])
-    # else:
 
+    # Ako vec postoji path stranice u recniku, povecava se brojac u suprotnom, path se dodaje u recnik
     if path in node.dictionary:
-        #lista = node.dictionary[path]
-        #lista[0] += 1
         node.dictionary[path] += 1
         node.set.add(path)
-        #node.counters[path] += 1
-        #node.links[path] = node.links
         node.counter += 1
     else:
         node.dictionary[path] = 1
         node.set.add(path)
-        #node.counters[path] = 1
-        #node.links[path] = links
         node.counter += 1
-    #if temp != 1:
-    """if path not in node.counters:
-        #node.paths.append(path)
-        #node.counters.append(1)
-        node.counters[path] = 1
-        #node.links.append(links)
-        node.links[path] = links
-        node.counter += 1
-    else:
-        node.counters[path] += 1
-        node.counter += 1"""
-    """if path not in node.paths:
-        node.paths.append(path)
-        node.counters.append(1)
-        node.links.append(links)
-    else:
-        i = -1
-        for path in node.paths:
-            i = i + 1
-        node.counters[i] += 1"""
 
 
-def find(root, prefix: str) :
+def find(root, word: str) :
     """
-    Check and return
-      1. If the prefix exsists in any of the words we added so far
-      2. If yes then how may words actually have the prefix
+    Trazi da li zadata rec postoji u stablu.
+    Ako nadje, vraca path stranice i broj reci na njoj
+
     """
     node = root
     setStranica = set.Set()
-    #linkovi = []
-    # If the root node has no children, then return False.
-    # Because it means we are trying to search in an empty trie
+    # Ako koren nema 'dece' (stablo je prazno), vraca se False
     if not root.children:
         return setStranica, node.dictionary
-    for char in prefix:
+    for char in word:
         char_not_found = True
-        # Search through all the children of the present `node`
+        # Trazi karakter u listi 'dece' trenutnog cvora
         for child in node.children:
             if child.char == char:
-                # We found the char existing in the child.
+                # Karakter je pronadjen
                 char_not_found = False
-                # Assign node as the child containing the char and break
+                # 'Dete' u kome je nadjen karakter postaje trenutni cvor
                 node = child
-                """
-                for link in node.links:
-                    if link not in linkovi:
-                        linkovi.append(link)
-                linkovi = list(set(linkovi))
-                """
                 break
-        # Return False anyway when we did not find a char.
+        # Ako nije pronadjen karakter, vraca False
         if char_not_found:
             return setStranica, node.dictionary
-    # Well, we are here means we have found the prefix. Return true to indicate that
-    # And also the counter of the last node. This indicates how many words have this
-    # prefix
-    #if node.word_finished == True:
-        #print(node.word_finished)
-    #return set.Set(True, node.counter, node.counters, node.links)
+    # Trazena rec je pronadjena i vracamo set i recnik stranica
     return node.set, node.dictionary
-    #else:
-        #return False, [], [], []

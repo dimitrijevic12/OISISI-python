@@ -12,11 +12,6 @@ def obidji(rootdir):
                 parser = Parser()
                 parser.parse(os.path.join(subdir, file))
                 for word in parser.words:
-                    ###print(word)
-                    """if word.lower() == "sphinx":
-                       print('******************')
-                    else:
-                        print(word)"""
                     trie.add(root, word.lower(), os.path.join(subdir, file))
     if found == 0:
         print("Ne postoji html dokument u korenskom direktorijumu: ", rootdir)
