@@ -1,6 +1,8 @@
 from obilazakDokumenata import obilazakFajlova
 from parseri import queryParser
 from pretragaDokumenata import searchAlgorithm
+import time
+import rangiranje
 
 bool1 = '1'
 bool2 = '1'
@@ -8,9 +10,23 @@ while bool1 == '1':
     if bool2 == '1':
         while True:
             rootdir = input("Unesite korenski direktorijum: ")
-            (bool, root) = obilazakFajlova.obidji(rootdir)
-            if bool == True:
+            beginning = time.time()
+            (bool, root,graf) = obilazakFajlova.obidji(rootdir)
+
+            ending = time.time()
+            tik = ending - beginning
+
+            if bool:  # &tacno:
+
+                print("Uspesno su parsirana dokumenta. \n")
+                print("Vreme za parsiranje je bilo: \n", tik, " \n")
                 break
+
+            else:
+
+                print("Neuspesno su parsirana dokumenta. \n")
+                print("Vreme za pokusaj parsiranja je bilo: \n", tik, " \n")
+
         print('**********************************************************************\n')
         print('Ako zelite ponovo da unesete korenski direktorijum, unesite broj 1\nAko zelite da unesete upit, unesite broj 2\nAko zelite da izadjete iz programa, unesite broj 3')
         print('\n**********************************************************************\n')
@@ -24,12 +40,25 @@ while bool1 == '1':
         (konacanSet, recnikStranica) = searchAlgorithm.find(root, search, logop)
 
         print('\n**********************************************************************\n')
+
+
         if not recnikStranica:
             print('Nije pronadjena nijedna rec!\n')
         else:
             print(konacanSet)
             print(recnikStranica)
         print('**********************************************************************\n')
+
+        list = rangiranje.rangiraj(graf, recnikStranica)
+
+        print('\n**********************************************************************\n')
+        print('\n***************************RANGIRANJE*********************************\n')
+        if not recnikStranica:
+            print('Rangiranje neuspesno!\n')
+        else:
+            for l in list:
+                print(l)
+        print('\n**********************************************************************\n')
         print('Ako zelite da unesete novi korenski direktorijum, unesite broj 1\nAko zelite ponovo da unesete upit, unesite broj 2\nAko zelite da izadjete iz programa, unesite broj 3')
         print('\n**********************************************************************\n')
         bool2 = input('Opcija: ')

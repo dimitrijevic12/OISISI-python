@@ -18,3 +18,12 @@ class Graph(object):
         self.add_vertex(vertex)
         for link in links:
             self.add_edge(vertex, link)
+
+    def vertices(self):
+        return list(self._nasl.keys())
+
+    def vertices1(self):
+        return list(self._pred.keys())
+
+    def get_pred(self, vertex):
+        return self._pred[vertex]
