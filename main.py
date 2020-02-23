@@ -1,6 +1,6 @@
-import obilazakFajlova
-import queryParser
-import searchAlgorithm
+from obilazakDokumenata import obilazakFajlova
+from parseri import queryParser
+from pretragaDokumenata import searchAlgorithm
 
 bool1 = '1'
 bool2 = '1'

@@ -1,5 +1,5 @@
-import trie
-import set
+from strukturePodataka import set, trie
+
 
 def find(root, search, logop):
     konacanSet = set.Set()

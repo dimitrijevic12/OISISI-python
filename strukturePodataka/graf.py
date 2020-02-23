@@ -1,6 +1,3 @@
-from set import Set
-
-
 class Graph(object):
     def __init__(self):
         self._nasl = {}

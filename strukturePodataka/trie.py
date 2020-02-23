@@ -1,5 +1,5 @@
-from typing import Tuple
-import set
+from strukturePodataka import set
+
 
 class TrieNode(object):
     """

@@ -1,6 +1,7 @@
 import os
-from analyzer import Parser
-import trie
+from parseri.analyzer import Parser
+from strukturePodataka import trie
+
 
 def obidji(rootdir):
     root = trie.TrieNode('*')
