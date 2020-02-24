@@ -27,3 +27,4 @@ class Graph(object):
 
     def get_pred(self, vertex):
         return self._pred[vertex]
+

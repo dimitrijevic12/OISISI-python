@@ -1,3 +1,4 @@
+import math
 def rangiraj(graf, recnikStranica):
     mylist = list()
     rang=0
@@ -11,7 +12,7 @@ def rangiraj(graf, recnikStranica):
                     break
         a=recnikStranica[key]
         b=len(graf.get_pred(key))
-        rang=a+b+m
+        rang=math.ceil(a*0.75+b*0.5+m*1.5)
         element = (key,rang,a,b,m)
         mylist.append(element)
 

@@ -3,6 +3,7 @@ from parseri import queryParser
 from pretragaDokumenata import searchAlgorithm
 import time
 import rangiranje
+from Ispis import paginacija
 
 bool1 = '1'
 bool2 = '1'
@@ -56,8 +57,7 @@ while bool1 == '1':
         if not recnikStranica:
             print('Rangiranje neuspesno!\n')
         else:
-            for l in list:
-                print(l)
+            paginacija.paginacija(list)
         print('\n**********************************************************************\n')
         print('Ako zelite da unesete novi korenski direktorijum, unesite broj 1\nAko zelite ponovo da unesete upit, unesite broj 2\nAko zelite da izadjete iz programa, unesite broj 3')
         print('\n**********************************************************************\n')
@@ -66,4 +66,5 @@ while bool1 == '1':
         bool1 = '3'
     else:
         bool2 = input("Unesite jednu od opcija(1, 2, 3): ")
+
 
