@@ -11,7 +11,7 @@ def parse(query):
         return False, logop, search
     elif len(splittedQuery) == 1 and first not in cases:
         logop = "OR"
-        search.append(first)
+        search.append(first.lower())
         return True, logop, search
     if first in cases:
         print("Prva rec upita ne sme biti logicki operator")
@@ -19,7 +19,7 @@ def parse(query):
 
     else:
         if len(splittedQuery) == 1:
-            search.append(first)
+            search.append(first.lower())
             return True, logop, search
         else:
             second = splittedQuery[1]
@@ -28,19 +28,22 @@ def parse(query):
                 if len(splittedQuery) == 4:
                     print("Upit koji sadrzi logicki operator(kod kojeg prva rec nije log. operator NOT) mora sadrzati tacno 2 reci i jedan logicki operator")
                     return False, logop, search
+                elif len(splittedQuery) == 2:
+                    print("Logicki operator ne moze stajati na poslednjem mestu, mora stajati izmedju dve reci")
+                    return False, logop, search
                 else:
                     if splittedQuery[2] in cases:
                         print("Ne mogu stajati dva logicka operatora, jedan za drugim")
                         return False, logop, search
                     else:
-                        search.append(splittedQuery[0])
-                        search.append(splittedQuery[2])
+                        search.append(splittedQuery[0].lower())
+                        search.append(splittedQuery[2].lower())
             else:
                 logop = "OR"
                 for word in splittedQuery:
                     if word in cases:
-                        print("Logicki operator ne moze da se nadje na kraju upita")
+                        print("Logicki operatori rade samo kada stoje izmedju tacno dve reci")
                         return False, logop, search
                     else:
-                        search.append(word)
+                        search.append(word.lower())
     return True, logop,search
