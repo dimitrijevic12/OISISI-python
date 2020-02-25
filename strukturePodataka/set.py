@@ -18,12 +18,14 @@ class Set:
             string += stranica + "\n"
         return string
 
+    def __copy__(self):
+        return Set(self)
+
     def __or__(self, other):
         konacanSet = Set()
         for key in other.stranice:
-            konacanSet.add(key)
-        for key in self.stranice:
-            konacanSet.add(key)
+            if key not in other.stranice:
+                konacanSet.add(key)
         return konacanSet
 
     def komplement(self, other):

@@ -59,6 +59,7 @@ def find(root, word: str) :
     """
     node = root
     setStranica = set.Set()
+    konacanDict = {}
     # Ako koren nema 'dece' (stablo je prazno), vraca se False
     if not root.children:
         return setStranica, node.dictionary
@@ -76,4 +77,8 @@ def find(root, word: str) :
         if char_not_found:
             return setStranica, node.dictionary
     # Trazena rec je pronadjena i vracamo set i recnik stranica
-    return node.set, node.dictionary
+
+    for stranica in node.dictionary:
+        setStranica.add(stranica)
+        konacanDict[stranica] = node.dictionary[stranica]
+    return setStranica, konacanDict
