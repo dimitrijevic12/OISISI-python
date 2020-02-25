@@ -2,8 +2,8 @@ from obilazakDokumenata import obilazakFajlova
 from parseri import queryParser
 from pretragaDokumenata import searchAlgorithm
 import time
-from ispis import paginacija
-from ispis import rangiranje
+from prikazRezultata import paginacija
+from prikazRezultata import rangiranje
 
 bool1 = '1'
 bool2 = '1'
