@@ -17,6 +17,8 @@ def find(root, search, logop):
                 for key2 in dict2:
                     if key2 not in dict1:
                         dict1[key2] = dict2[key2]
+                    else:
+                        dict1[key2] += dict2[key2]
             return konacanSet, dict1
     elif logop == "AND":
         i = -1
@@ -27,7 +29,7 @@ def find(root, search, logop):
         konacanSet = set1 & set2
         for key in dict1:
             if key in dict2:
-                konacanDict[key] = dict2[key]
+                konacanDict[key] = dict2[key] + dict1[key]
 
         return konacanSet, konacanDict
     else:
