@@ -29,14 +29,6 @@ def find(root, search, logop):
             if key in dict2:
                 konacanDict[key] = dict2[key]
 
-        # del search[0]
-        # for word in search:
-        #     i += 1
-        #     set2, dict2 = trie.find(root, word)
-        #     konacanSet = set1 & set2
-        #     for key in dict1:
-        #         if key in dict2:
-        #             dict1[key] = dict2[key]
         return konacanSet, konacanDict
     else:
         set1, dict1 = trie.find(root, search[0])
