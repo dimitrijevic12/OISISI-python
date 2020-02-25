@@ -2,8 +2,8 @@ from obilazakDokumenata import obilazakFajlova
 from parseri import queryParser
 from pretragaDokumenata import searchAlgorithm
 import time
-import rangiranje
-from Ispis import paginacija
+from ispis import paginacija
+from ispis import rangiranje
 
 bool1 = '1'
 bool2 = '1'
@@ -46,18 +46,16 @@ while bool1 == '1':
         if not recnikStranica:
             print('Nije pronadjena nijedna rec!\n')
         else:
-            print(konacanSet)
-            print(recnikStranica)
-        print('**********************************************************************\n')
+            #print(konacanSet)
+            #print(recnikStranica)
 
-        list = rangiranje.rangiraj(graf, recnikStranica)
+            lista = rangiranje.rangiraj(graf, recnikStranica)
 
-        print('\n**********************************************************************\n')
-        print('\n***************************RANGIRANJE*********************************\n')
-        if not recnikStranica:
-            print('Rangiranje neuspesno!\n')
-        else:
-            paginacija.paginacija(list)
+            print('***************************RANGIRANJE*********************************\n')
+            if not recnikStranica:
+                print('Rangiranje neuspesno!\n')
+            else:
+                paginacija.paginacija(lista)
         print('\n**********************************************************************\n')
         print('Ako zelite da unesete novi korenski direktorijum, unesite broj 1\nAko zelite ponovo da unesete upit, unesite broj 2\nAko zelite da izadjete iz programa, unesite broj 3')
         print('\n**********************************************************************\n')
