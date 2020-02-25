@@ -6,7 +6,10 @@ def parse(query):
     first = splittedQuery[0]
     logop = ""
     search = []
-    if len(splittedQuery) == 1 and first not in cases:
+    if first == "":
+        print("Uneli ste prazan upit")
+        return False, logop, search
+    elif len(splittedQuery) == 1 and first not in cases:
         logop = "OR"
         search.append(first)
         return True, logop, search
