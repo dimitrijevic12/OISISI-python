@@ -1,0 +1,120 @@
+Čvor Trie stabla sadrži:
+  -char 		(karakter)
+  -children             (lista sve dece jednog čvora)
+  -word_finished      	(provera da li je rec zavrsena)
+  -dictionary           (recnik koji sadrzi path stranice kao kljuc i broj reci na toj stranici kao vrednost)
+  -set             	(skup stranica)
+  -counter		(ukupan broj pojavljivanja karaktera)
+
+Trie add(root, word, path):
+
+  -Prolazi kroz svaki karakter zadate reči(word).
+
+  -Prolazi kroz decu trenutnog čvora(na početku je to root), i upoređuje karakter iz deteta sa trenutnim karakterom reči.
+
+  -Ako je poređenje tačno, dete sa tim karakterom postaje trenutni čvor i prelazi se na sledeći karakter zadate reči,
+   u suprotnom se dodaje novi čvor čije će polje char biti trenutni karakter iz reči u listu dece trenutnog čvora
+   i novonastali čvor postaje trenutni čvor.
+
+  -Kada prođe kroz sve karaktere zadate reči, u trenutnom čvoru polje word_finished postavlja na True da označimo kraj reči.
+
+  -Proverava da li se zadata putanja(path) nalazi u polju dictionary trenutnog čvora kao ključ, ako se nalazi povećava broj reči na stranici sa zadatom putanjom za 1,
+   u suprotnom, ako ne nađe da zadata putanja postoji kao ključ u rečniku, dodaje novi element(broj 1, koji je broj reči na stranici) u dictionary sa ključem
+   koji odgovara zadatoj putanji
+
+
+Trie find (root, word):
+
+  -root se postavlja kao trenutni čvor,
+   inicijalizuje se prazan set na setStranica i prazan rečnik na konacniDict(kako bi kasnije radio sa kopijama a ne direktno sa referencama na objekte)
+
+  -Odmah proveri da li je stablo čiji je koren root prazno, ako jeste find se završava i vraćaju se prazne vrednosti za set i rečnik
+
+  -Ako stablo nije prazno, prolazi kroz svaki karakter zadate reči i flag char_not_found postavlja na vrednost True
+
+  -Prolazi kroz decu trenutnog čvora i upoređuje karakter char iz deteta i trenutni karakter iz zadate reči,
+   ako pronađe, flag char_not_found postavlja na vrednost False i izlazi iz petlje, u suprotnom nastavlja da traži
+
+  -Ako prethodni korak nije uspeo da pronađe karakter zadate reči u polju char čvorova dece, vraćaju se prazne vrednosti za set i rečnik
+
+  -Ako je uspešno pronađena reč, pravi se kopija seta i rečnika i prosleđuju se te vrednosti
+
+
+Graph ima dve promenjive 
+  - _nasl  za svaku stranicu dodatu graf čuva spisak stranica na koje pokazuje trenutna stranica (izlazni edge)
+  - _pred  za svaku stranicu prikazuje koje sve stranice pokazuju na nju (ulazni edge)
+
+Graph add_vertex(self, vertex):
+  - prvo dodaje dati verteks u _nasl da bismo mogli da dodajemo na koje sajtove on pokazuje
+  - proverimo da li dati verteks već postoji u spisku predaka ,ako ne postoji dodajemo ga u _pred
+
+Graph add_edge(self, ver1, ver2):
+  -prima dva verteksa ,gde je drugi naslednik prvog
+  -prvo doda drugi verteks u spisak naslednika prvog verteksa
+  -zatim proverava da li verteks dva postoji u spisku predaka i dodaje ga ako ne postoji
+  -dodaje verteks jedan u spisak predaka verteksa dva
+
+Graph add_site(self, vertex, links):
+  -prima stranicu(verteks) i linkove na koje ta stranica pokazuje
+  -za dati verteks poziva metodu add_vertex 
+  -koristimo for petlju da prođemo kroz sve linkove na koje pokazuje stranica(vertex) i za svaki link pozivamo metodu add_edge 
+
+Graph get_pred(self, vertex):
+  -vraća spisak predaka za stranicu (verteks),tj. spisak stranica koje pokazuju na tu stranicu
+
+rangiraj(graf, recnikStranica):
+  -for petljom prolazimo kroz rečnik stranica ,i za svaku stranicu računamo rang 
+  -za svaku stranicu iz rečnika prolazimo kroz dve for petlje 
+  -prva for petlja prolazi kroz sve predke trenutne stranice(stranice koje pokazuju na trenutnu stranicu)
+  -druga for petlja prolazi kroz rečnik stranica 
+  -kada se jedan od predaka nađe u rečniku stranica ,iz rečnika se uzima broj ponavljanja tražene reči i dodaje se u sumu(m) koja predstavlja ukupan broj
+   ponavljanja tražene reči kod svih predaka trenutne stranice 
+  -zatim izlazimo iz druge petlje i tako za sve pretke trenutne stranice
+  -suma (m) pretstavlja prvi i najvažniji kriterijum za rangiranje 
+  -drugi kriterijum je broj ponavljanje tražene reči na samoj stranici (a)
+  -treći kriterijum je broj predaka trenutne stranice (b)
+  -rang je suma ova tri broja ,gde je svaki broj pomnožen sa konstantom da bi se naglasila važnost određenog kriterijuma u rangiranju
+  -za svaku stranicu pravi se element koji sadrzi link same stranice,rang stranice,broj ponavljanja trazene reci na tranici,broj predaka stranice ,i sumu 
+   broja ponavljanja tražene reči na svim precima trenutne stranice 
+  -sve elemente dodajemo u listu i zatim tu listu sortiramo po rangu u opadajućem redosledu 
+  -sortirana lista vraća se kao rezultat rangiranja
+
+paginacija(lista=list):
+  -prima rangiranu listu 
+  -obaveštava korisnika o broju rezultata i od njega traži broj za prikaz rezultata po strani 
+  -broj mora biti veći od nule ,ali ne sme biti veći od ukupnog broja rezultata
+  -zatim ispisuje prvu stranu rezultata i omogućava korisniku da unese broj strane na koji želi da ode 
+  -taj broj mora biti veći od nule,ali ne sme biti veći od mogućeg broja strana 
+  -ukoliko korisnik unese ne važeće vrednosti ,biće obavešten i vraćen na unos podatka dok ne unese vazeći podatak ili ne unese nulu za izlaz iz petlje
+
+ispis(element):
+  -ispisuje element 
+
+Set:
+  -ima promenjivu skup koja je skup HTML stranica
+  -ako je vrednost skupa None onda se pravi novi skup ,u suprotnom izjednačavamo stranice trenutnog skupa sa stranicama prosledjenog skupa
+
+Set add(self, other):
+  -dodaje stranicu other u trenutni skup stranica ako ona vec ne postoji u tom skupu
+
+Set __str__(self):
+  -menja defoltnu metodu za pretvaranje u string
+  -vraća string koji se sastoji od svih stranica trenutnog skupa
+
+Set __or__(self, other):
+  -upotrebom for petlje prolazi kroz sve stranice drugog skupa 
+  -poroverava da li ta stranica postoji u skupu trenutnih stranica 
+  -ako ne postoji ,ta stranica se dodaje u konacanSet
+  -metoda vraca konacanSet koji pretstavlja skup stranica koje se pojavljuju u drugom skupu ali se ne pojavljuju u prvom skupu
+
+Set komplement(self, other):
+  -upotrebom for petlje prolazimo kroz sve stranice iz trenutnog skupa 
+  -proveravamo da li se stranice iz trenutnog skupa nalaze u drugom skupu
+  -ako se stranica ne nalazi u drugom skupu dodajemo je u konacanSet
+  -metoda vraća konacanSet kao povratnu vrednost
+	
+Set __and__(self, other):
+  -upotrebom for petlje prolazimo kroz sve stranice iz trenutnog skupa 
+  -proveravamo da li se stranice iz trenutnog skupa nalaze u drugom skupu
+  -ako se stranica nalazi u drugom skupu dodajemo je u konacanSet
+  -metoda vraća konacanSet kao povratnu vrednost
